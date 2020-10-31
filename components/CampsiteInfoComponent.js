@@ -9,12 +9,13 @@ import {
   StyleSheet,
   Alert,
   PanResponder,
+  Animated 
 } from "react-native";
 import { Card, Icon, Input } from "react-native-elements";
 import { connect } from "react-redux";
 import { baseUrl } from "../shared/baseUrl";
 import { postFavorite, postComment } from "../redux/ActionCreators";
-import { State } from "react-native-gesture-handler";
+import { State } from "react-native";
 
 const mapStateToProps = (state) => {
   return {
