@@ -66,7 +66,7 @@ function RenderCampsite(props) {
       <Animatable.View
         animation='fadInDown'
         duration={2000} 
-        delay{1000}
+        delay={1000}
         {...panResponder.panHandlers}
       >
         <Card
