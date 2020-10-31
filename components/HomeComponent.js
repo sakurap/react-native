@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { View, Text, ScrollView, Animated  } from "react-native";
+import { View, Text, ScrollView, Animated } from "react-native";
 import { Card } from "react-native-elements";
 import { connect } from "react-redux";
 import { baseUrl } from "../shared/baseUrl";
 import Loading from "./LoadingComponent";
+import * as Animatable from "react-native-animatable";
 
 const mapStateToProps = (state) => {
   return {
@@ -13,7 +14,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-function RenderItem( props ) {
+function RenderItem(props) {
   const { item } = props;
 
   if (props.isLoading) {
@@ -37,29 +38,24 @@ function RenderItem( props ) {
 }
 
 class Home extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-        scaleValue: new Animated.Value(0)
+      scaleValue: new Animated.Value(0),
     };
-}
+  }
 
-animate() {
-  Animated.timing(
-      this.state.scaleValue,
-      {
-          toValue: 1,
-          duration: 1500,
-          useNativeDriver: true
-      }
-  ).start();
-}
+  animate() {
+    Animated.timing(this.state.scaleValue, {
+      toValue: 1,
+      duration: 1500,
+      useNativeDriver: true,
+    }).start();
+  }
 
-componentDidMount() {
-  this.animate();
-}
-
+  componentDidMount() {
+    this.animate();
+  }
 
   static navigationOptions = {
     title: "Home",
@@ -67,7 +63,10 @@ componentDidMount() {
 
   render() {
     return (
-      <Animated.ScrollView style={{transform: [{scale: this.state.scaleValue}]}}>>
+      <Animatable.View
+        style={{ transform: [{ scale: this.state.scaleValue }] }}
+      >
+        
         <RenderItem
           item={
             this.props.campsites.campsites.filter(

@@ -8,9 +8,9 @@ import {
   Switch,
   Button,
   Modal,
-  Animated 
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import * as Animatable from "react-native-animatable";
 
 class Reservation extends Component {
   constructor(props) {
@@ -61,7 +61,7 @@ class Reservation extends Component {
   render() {
     return (
       <ScrollView>
-        <Animatable.View>
+        <Animatable.View animation="zoomIn" duration={2000} delay={1000}>
           <View style={styles.formRow}>
             <Text style={styles.formLabel}>Number of Campers</Text>
             <Picker
