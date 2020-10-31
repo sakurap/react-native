@@ -3,7 +3,8 @@ import { View, FlatList } from "react-native";
 import { Tile } from "react-native-elements";
 import { connect } from "react-redux";
 import { baseUrl } from "../shared/baseUrl";
-import Loading from './LoadingComponent';   
+import Loading from "./LoadingComponent";
+import * as Animatable from "react-native-animatable";
 
 const mapStateToProps = (state) => {
   return {
@@ -20,17 +21,19 @@ class Directory extends Component {
     const { navigate } = this.props.navigation;
     const renderDirectoryItem = ({ item }) => {
       return (
-        <Tile
-          title={item.name}
-          caption={item.description}
-          featured
-          onPress={() => navigate("CampsiteInfo", { campsiteId: item.id })}
-          imageSrc={{ uri: baseUrl + item.image }}
-        />
+        <Animatable.View animation="fadeInRightBig" duration={2000}>
+          <Tile
+            title={item.name}
+            caption={item.description}
+            featured
+            onPress={() => navigate("CampsiteInfo", { campsiteId: item.id })}
+            imageSrc={{ uri: baseUrl + item.image }}
+          />
+        </Animatable.View>
       );
     };
 
-    if (this.props.campsites.isLoading){
+    if (this.props.campsites.isLoading) {
       return <Loading />;
     }
     if (this.props.campsites.errMess) {
@@ -38,7 +41,7 @@ class Directory extends Component {
         <View>
           <Text>{props.campsites.errMess}</Text>
         </View>
-      )
+      );
     }
     return (
       <FlatList

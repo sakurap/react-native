@@ -4,6 +4,7 @@ import { ListItem } from "react-native-elements";
 import { connect } from "react-redux";
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
+import * as Animatable from "react-native-animatable";
 
 const mapStateToProps = (state) => {
   return {
@@ -19,16 +20,16 @@ class Favorites extends Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    const renderFavoriteItem = ({item}) => {
-        return (
-            <ListItem
-                title={item.name}
-                subtitle={item.description}
-                leftAvatar={{source: {uri: baseUrl + item.image}}}
-                onPress={() => navigate('CampsiteInfo', {campsiteId: item.id})}
-            />
-        );
-    }; 
+    const renderFavoriteItem = ({ item }) => {
+      return (
+        <ListItem
+          title={item.name}
+          subtitle={item.description}
+          leftAvatar={{ source: { uri: baseUrl + item.image } }}
+          onPress={() => navigate("CampsiteInfo", { campsiteId: item.id })}
+        />
+      );
+    };
 
     if (this.props.campsites.isLoading) {
       return <Loading />;
@@ -41,13 +42,15 @@ class Favorites extends Component {
       );
     }
     return (
-      <FlatList
-        data={this.props.campsites.campsites.filter((campsite) =>
-          this.props.favorites.includes(campsite.id)
-        )}
-        renderItem={renderFavoriteItem}
-        keyExtractor={(item) => item.id.toString()}
-      />
+      <Animatable.View animation="fadeInRightBig" duration={2000}>
+        <FlatList
+          data={this.props.campsites.campsites.filter((campsite) =>
+            this.props.favorites.includes(campsite.id)
+          )}
+          renderItem={renderFavoriteItem}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </Animatable.View>
     );
   }
 }
